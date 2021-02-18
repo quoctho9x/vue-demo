@@ -1,7 +1,14 @@
-<template>
+<template v-if=awesome>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App" :count='count' />
+    <span v-once> {{count}}</span>
+    <p :id="dynamicId">Using mustaches: {{ htmlRaw }}</p>
+    <p :id='reverseddynamicId'>Using v-html directive: <span v-html="htmlRaw"></span></p>
+    <button :disabled="!awesome">Button</button>
+     <span>{{ awesome ? 'YES' : 'NO' }}</span>
+    {{ awesome ? 'YES' : 'NO' }}
+   
     <div v-if="count > 2 ">
       Now you see me
     </div>
@@ -18,6 +25,7 @@
 <script>
 // @ is an alias to /src
 import HelloWorld from '@/components/HelloWorld.vue'
+// import AboutVue from './About.vue'
 
 export default {
   name: 'Home',
@@ -25,7 +33,23 @@ export default {
     HelloWorld
   },
   data(){
-    return {count: this.$store.state.count, awesome: false}
+    return {
+      count: this.$store.state.count,
+      awesome: function () {
+      // `this` points to the vm instance
+      console.log('run')
+      return true;
+    },
+      htmlRaw: '<span style="color:red"> hello hihi</span>',
+      dynamicId: 'tetsID'
+    }
+  },
+  computed: {
+      reverseddynamicId: function () {
+      // `this` points to the vm instance
+      console.log('run')
+      return this.dynamicId.split('').reverse().join('')
+    }
   },
   methods:{
     increment() {
@@ -33,7 +57,8 @@ export default {
       this.$store.commit('increment');
       this.count = this.$store.state.count;
       this.awesome = true;
-      console.log(this.$store.state.count)
+      console.log(this.$store.state.count);
+      // AboutVue.greet();
 
     }
   }
