@@ -2,7 +2,7 @@
   <div class="about">
     <h1>This is an about page</h1>
     <ul id="example-1">
-      <li v-for="(item, index) in items" :key="item.message">
+      <li v-for="(item, index) of items" :key="item.message">
         {{parentMessage}} - {{index}} - {{ item.message }}
       </li>
     </ul>
@@ -17,7 +17,14 @@
      <li v-for="n in evenNumbers" :key="n">{{ n }}</li>
     </ul>
 
-    <button v-on:click="warn('Form cannot be submitted yet.', $event, $this)">
+    <input v-model="message" placeholder="Enter a message">
+    <p>Message is: {{ message }}</p>
+    <p :style="{textDecoration : textDecoration}">test style</p>
+    <p :style="styling">test style version 2</p>
+
+    <p :class="{underline: false}">Hi!</p>
+
+    <button @click="warn('Form cannot be submitted yet.', $event)">
       Submit
     </button>
     
@@ -31,7 +38,12 @@ export default {
   },
   data() {
     return{
+      message:'message',
       parentMessage: 'Parent',
+      number: 1,
+      textDecoration: 'underline',
+      textWeight: 'bold',
+      isUnderlined: true,
       numbers: [1,2,3,4,5,6],
       items: [
           { message: 'Foo' },
@@ -47,7 +59,13 @@ export default {
   computed: {
     evenNumbers: function (){
       return this.numbers.filter(function (number) {return number % 2 === 0})
-    } 
+    },
+    styling: function() {
+      return {
+        textDecoration: this.textDecoration,
+        fontWeight: this.textWeight
+      }
+    }
   },
   methods: {
     greet: function (event) {
@@ -58,12 +76,13 @@ export default {
         alert(event.target.tagName)
       }
     },
-    warn: function (message, event, safe) {
+    warn: function (message, event) {
     // now we have access to the native event
-    console.log('event: ', safe, event);
+    console.log('event: ', event, this);
     if (event) {
       event.preventDefault()
     }
+    this.number++;
     alert(message)
   }
     
@@ -75,5 +94,5 @@ export default {
 </script>
 
 <style>
-
+  .underline { text-decoration: underline; }
 </style>

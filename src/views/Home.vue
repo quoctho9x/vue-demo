@@ -1,7 +1,11 @@
 <template v-if=awesome>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App" :count='count' />
+    <HelloWorld msg="Welcome to Your Vue.js App"
+                :count='count'
+                @clickedSomething="handleClickInParent">
+      <span>day la slot ne</span>
+    </HelloWorld>
     <span v-once> {{count}}</span>
     <p :id="dynamicId">Using mustaches: {{ htmlRaw }}</p>
     <p :id='reverseddynamicId'>Using v-html directive: <span v-html="htmlRaw"></span></p>
@@ -18,13 +22,16 @@
 
     <h1 v-if="awesome">Vue is awesome!</h1>
     <h1 v-else>Oh no 😢</h1>
+    <div :class="['car', count.toString()]">da la class</div>
+    <div :class="{underline: true, weight: true}">da la class</div>
     <button @click='increment'> click vao di {{count}} {{count > 2 ? 'them vao ': ''}}</button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld'
+import HelloWorld from '../components/HelloWorld.vue'
 // import AboutVue from './About.vue'
 
 export default {
@@ -53,13 +60,17 @@ export default {
   },
   methods:{
     increment() {
-
-      this.$store.commit('increment');
+      this.$store.dispatch('increment');
+      // this.$store.commit('increment');
+      // this.$store.commit('change', {name:'hello', value: this.count});
       this.count = this.$store.state.count;
       this.awesome = true;
       console.log(this.$store.state.count);
       // AboutVue.greet();
 
+    },
+    handleClickInParent: function (params1, params2) {
+      console.log(params1, params2)
     }
   }
 }
