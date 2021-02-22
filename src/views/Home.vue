@@ -22,7 +22,7 @@
 
     <h1 v-if="awesome">Vue is awesome!</h1>
     <h1 v-else>Oh no 😢</h1>
-    <div :class="['car', count.toString()]">da la class</div>
+    <div :class="['car']">da la class</div>
     <div :class="{underline: true, weight: true}">da la class</div>
     <button @click='increment'> click vao di {{count}} {{count > 2 ? 'them vao ': ''}}</button>
   </div>
@@ -41,7 +41,7 @@ export default {
   },
   data(){
     return {
-      count: this.$store.state.count,
+      count: this.$store.state.auth.count,
       awesome: function () {
       // `this` points to the vm instance
       console.log('run')
@@ -60,13 +60,11 @@ export default {
   },
   methods:{
     increment() {
-      this.$store.dispatch('increment');
-      // this.$store.commit('increment');
-      // this.$store.commit('change', {name:'hello', value: this.count});
-      this.count = this.$store.state.count;
+      this.$store.dispatch('auth/increment');
+      this.$store.dispatch('auth/change', {name:'hello', value: this.count+1});
+      this.count = this.$store.state.auth.count;
       this.awesome = true;
-      console.log(this.$store.state.count);
-      // AboutVue.greet();
+      console.log(this.$store.state.auth.count);
 
     },
     handleClickInParent: function (params1, params2) {
