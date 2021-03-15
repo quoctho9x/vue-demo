@@ -1,14 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home test</router-link> |
-      <router-link to="/about">About</router-link> |
-      <router-link to="/intro">Intro</router-link> |
-      <router-link to="/example1">Example1</router-link>
+    <Header/>
+    <div id="router-wiew">
+      <router-view/>
     </div>
-    <router-view/>
   </div>
 </template>
+
+<script>
+
+  import Header from "./components/Header/Header";
+
+  export default {
+    name: 'App',
+    props: {
+
+    },
+    components: {
+      Header
+    },
+  }
+</script>
 
 <style>
 #app {
@@ -17,6 +29,10 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+}
+
+#router-wiew {
+  padding-top: 70px;
 }
 
 #nav {

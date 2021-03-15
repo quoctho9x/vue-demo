@@ -1,6 +1,7 @@
 <template v-if=awesome>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
+    <img alt="Vue logo" :src="iconLogo">
+    <img alt="Vue logo 2" style="width: 100px; height: 100px" :src="iconGift">
     <HelloWorld msg="Welcome to Your Vue.js App"
                 :count='count'
                 @clickedSomething="handleClickInParent">
@@ -31,16 +32,28 @@
 <script>
 // @ is an alias to /src
 // import HelloWorld from '@/components/HelloWorld'
-import HelloWorld from '../components/HelloWorld.vue'
+import HelloWorld from '../components/HelloWorld/HelloWorld.vue'
+import {iconGift, iconLogo} from "../utils/images";
 // import AboutVue from './About.vue'
 
 export default {
   name: 'Home',
+  mounted() {
+    // If the user is authenticated,
+    // fetch the data from the API
+    console.log('mounted');
+  },
+  beforeMount() {
+    console.log('beforeMount');
+  },
   components: {
     HelloWorld
   },
+
   data(){
     return {
+      iconGift,
+      iconLogo,
       count: this.$store.state.auth.count,
       awesome: function () {
       // `this` points to the vm instance

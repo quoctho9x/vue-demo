@@ -8,8 +8,10 @@
 
 export const UPDATE_COUNT = 'UPDATE_COUNT';
 export const UPDATE_FLAVOR = 'UPDATE_FLAVOR';
+export const LOGIN = 'LOGIN';
 
 export default {
   UPDATE_COUNT,
   UPDATE_FLAVOR,
+  LOGIN
 };

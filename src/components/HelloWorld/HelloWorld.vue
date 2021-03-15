@@ -35,7 +35,7 @@
 
 <script>
   // import './style.scss'
-  import '@/components/style.scss'
+  import '@/components/HelloWorld/style.scss'
 
 export default {
   name: 'HelloWorld',

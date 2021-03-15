@@ -21,12 +21,35 @@ const routes = [
   {
     path: '/intro',
     name: 'Intro',
-    component: () => import('../views/Introduction.vue')
+    component: () => import('../views/Introduction.vue'),
+    meta: {
+      auth: false,
+    },
   },
   {
     path: '/example1',
     name: 'Example1',
     component: () => import('../views/Example1.vue')
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: () => import('../views/Login/index.vue')
+  },
+  {
+    path: '/register',
+    name: 'Register',
+    component: () => import('../views/Register/index.vue')
+  },
+
+  {
+    path: '/',
+    redirect: '/',
+  },
+
+  {
+    path: '/*',
+    redirect: '/',
   },
 ]
 
